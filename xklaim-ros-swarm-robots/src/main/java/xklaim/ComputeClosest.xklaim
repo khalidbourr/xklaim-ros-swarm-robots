@@ -1,0 +1,29 @@
+package xklaim
+import static xklaim.GlobalConstants.*
+
+
+
+proc ComputeClosest(Locality robot) {
+	while(true){	
+		// read robot position 	
+		read(POSITION, var Double positionx, var Double positiony, var Double theta)@robot
+	    read(VICTIM_POSITION, val String id, val Double x_person, val Double y_person)@self
+		// compute the distance between the robot and all flags 
+		var double delta= Math.pow((x_person-positionx),2)+Math.pow((y_person-positiony),2)
+		var double norm=Math.sqrt(delta)
+		// send the short distance and the flag correspondence
+		out(DISTANCE_TO_VICTIM, id, norm)@robot
+		
+ 	}
+ 	
+ } 		
+
+ 	
+
+	
+	
+	
+	
+	
+	
+	

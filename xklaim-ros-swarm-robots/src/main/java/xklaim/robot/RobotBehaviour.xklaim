@@ -1,0 +1,17 @@
+package xklaim.robot
+
+
+import java.util.List
+import static xklaim.robot.RobotConstants.*
+
+ // The RobotBehaviour process defines the overall behavior for each robot in the network.
+proc RobotBehaviour(String robotId, Double centerX, Double centerY, Integer numIterations, List<Locality> neighbours) {
+	eval(new Formation(robotId,centerX,centerY,numIterations,neighbours))@self
+    in(FORMATION_COMPLETED)@self
+    eval(new RobotBehaviour(robotId,centerX,centerY,numIterations,neighbours))@self
+    
+
+}
+    
+
+    

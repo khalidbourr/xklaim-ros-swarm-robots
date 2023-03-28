@@ -1,0 +1,59 @@
+package xklaim.robot
+
+
+import static xklaim.robot.RobotConstants.*
+import java.util.List
+import java.util.HashMap
+
+proc CircleFormation(String robotId, Double centerX, Double centerY, Double radius, Integer numIterations, List<Locality> neighbours) {
+    val syncInterval = 2000
+    val totalRobots = neighbours.size()+1
+    val robotIndex = robotId.hashCode() % totalRobots
+    val targetAngle = robotIndex * (2 * Math.PI / totalRobots)
+
+    // Initialize position
+    var posX = centerX + radius * Math.cos(targetAngle)
+    var posY = centerY + radius * Math.sin(targetAngle)
+
+    // Move to the initial position
+    eval(new MoveTo(robotId, posX, posY))@self
+    in(MOVE_TO_COMPLETED)@self
+
+    for (var i = 0; i < numIterations; i++) {
+        // Share position with neighbors
+        for (Locality neighbour : neighbours) {
+            out("POSITION", robotId, posX, posY)@neighbour
+        }
+
+        // Retrieve positions of all neighbors
+        val positions = new HashMap<String, List<Double>>()
+        for (Locality neighbour : neighbours) {
+            in("POSITION", val String senderId, val Double x, val Double y)@self
+            positions.put(senderId, #[x, y])
+        }
+
+        // Calculate the average position of the robot and its neighbors
+        var avgX = posX
+        var avgY = posY
+
+        for (List<Double> position : positions.values()) {
+            avgX += position.get(0)
+            avgY += position.get(1)
+        }
+
+        avgX /= (neighbours.size() + 1)
+        avgY /= (neighbours.size() + 1)
+
+        // Update the position based on the average position and the desired circle formation
+        posX = centerX + radius * Math.cos(targetAngle) + 0.5 * (avgX - posX)
+        posY = centerY + radius * Math.sin(targetAngle) + 0.5 * (avgY - posY)
+
+        // Move to the updated position
+        eval(new MoveTo(robotId, posX, posY))@self
+        in(MOVE_TO_COMPLETED)@self
+
+        // Wait before the next iteration
+        Thread.sleep(syncInterval)
+    }
+    out(CIRCLE_FORMATION_COMPLETED)@self
+}

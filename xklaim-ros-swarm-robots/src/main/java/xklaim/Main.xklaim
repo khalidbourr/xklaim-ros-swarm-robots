@@ -1,0 +1,82 @@
+import java.util.List
+import xklaim.robot.RobotBehaviour
+
+net Robot physical "localhost:9999" {
+    node robot1 {
+        val robotId = "robot1"
+        val List<Locality> neighbours = #[robot2, robot3, robot4, robot5, robot6, robot7]
+        
+        val centerX = 0.0
+        val centerY = 0.0
+        val numWaypoints = 10
+        
+        eval(new RobotBehaviour(robotId, centerX, centerY, numWaypoints, neighbours))@self   
+        
+    }
+    node robot2 { 
+        val robotId = "robot2"
+        val List<Locality> neighbours = #[robot1, robot3, robot4, robot5, robot6, robot7]
+
+        val centerX = 0.0
+        val centerY = 0.0
+        val numWaypoints = 10
+        
+        eval(new RobotBehaviour(robotId, centerX, centerY, numWaypoints, neighbours))@self   
+          
+    }
+    node robot3 {
+        val robotId = "robot3"
+        val List<Locality> neighbours = #[robot1, robot2, robot4, robot5, robot6, robot7]
+
+        val centerX = 0.0
+        val centerY = 0.0
+        val numWaypoints = 10
+        
+        eval(new RobotBehaviour(robotId, centerX, centerY, numWaypoints, neighbours))@self   
+          
+    }
+    node robot4 {
+        val robotId = "robot4"
+        val List<Locality> neighbours = #[robot1, robot2, robot3, robot5, robot6, robot7]
+
+        val centerX = 0.0
+        val centerY = 0.0
+        val numWaypoints = 10
+        
+        eval(new RobotBehaviour(robotId, centerX, centerY, numWaypoints, neighbours))@self   
+          
+    }
+    node robot5 {
+        val robotId = "robot5"
+        val List<Locality> neighbours = #[robot1, robot2, robot3, robot4, robot6, robot7]
+
+        val centerX = 0.0
+        val centerY = 0.0
+        val numWaypoints = 10
+        
+        eval(new RobotBehaviour(robotId, centerX, centerY, numWaypoints, neighbours))@self   
+          
+    }
+    node robot6 {
+        val robotId = "robot6"
+        val List<Locality> neighbours = #[robot1, robot2, robot3, robot4, robot5, robot7]
+
+        val centerX = 0.0
+        val centerY = 0.0
+        val numWaypoints = 10
+        
+        eval(new RobotBehaviour(robotId, centerX, centerY, numWaypoints, neighbours))@self   
+          
+    }
+    node robot7 {
+        val robotId = "robot7"
+        val List<Locality> neighbours = #[robot1, robot2, robot3, robot4, robot5, robot6]
+
+        val centerX = 0.0
+        val centerY = 0.0
+        val numWaypoints = 10
+        
+        eval(new RobotBehaviour(robotId, centerX, centerY, numWaypoints, neighbours))@self   
+          
+    }
+}
