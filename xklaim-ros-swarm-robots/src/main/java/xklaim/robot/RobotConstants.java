@@ -19,5 +19,5 @@ public class RobotConstants {
 	public static final String LINE_FORMATION_COMPLETED = "Line_completed";
 	public static final String CIRCLE_FORMATION_COMPLETED = "Circle_completed";
 	public static final String FORMATION_COMPLETED = "Formation_completed";
-
+	public static final String GRID_FORMATION_COMPLETED = "Grid_completed";
 }

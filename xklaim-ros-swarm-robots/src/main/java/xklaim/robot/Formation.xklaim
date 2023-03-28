@@ -15,7 +15,14 @@ proc Formation(String robotId, Double centerX, Double centerY, Integer numIterat
     // Circle formation
     val circleRadius = 10.0
     eval(new CircleFormation(robotId, centerX, centerY, circleRadius, numIterations, neighbours))@self
-    in(CIRCLE_FORMATION_COMPLETED)@self
+    in(CIRCLE_FORMATION_COMPLETED)@self 
+    
+    
+    val row = 3
+    val col = 3
+    val gridspacing =6.0
+    eval(new GridFormation(robotId, row, col, gridspacing, numIterations, neighbours))@self
+    in(GRID_FORMATION_COMPLETED)@self
     
     
     out(FORMATION_COMPLETED)@self

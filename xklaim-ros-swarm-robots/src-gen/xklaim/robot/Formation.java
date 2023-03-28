@@ -36,6 +36,12 @@ public class Formation extends KlavaProcess {
     CircleFormation _circleFormation = new CircleFormation(this.robotId, this.centerX, this.centerY, Double.valueOf(circleRadius), this.numIterations, this.neighbours);
     eval(_circleFormation, this.self);
     in(new Tuple(new Object[] {RobotConstants.CIRCLE_FORMATION_COMPLETED}), this.self);
+    final int row = 3;
+    final int col = 3;
+    final double gridspacing = 6.0;
+    GridFormation _gridFormation = new GridFormation(this.robotId, Integer.valueOf(row), Integer.valueOf(col), Double.valueOf(gridspacing), this.numIterations, this.neighbours);
+    eval(_gridFormation, this.self);
+    in(new Tuple(new Object[] {RobotConstants.GRID_FORMATION_COMPLETED}), this.self);
     out(new Tuple(new Object[] {RobotConstants.FORMATION_COMPLETED}), this.self);
   }
 }

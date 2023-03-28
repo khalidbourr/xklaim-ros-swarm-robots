@@ -5,18 +5,19 @@ import static xklaim.robot.RobotConstants.*
 import java.util.List
 import java.util.HashMap
 
-proc CircleFormation(String robotId, Double centerX, Double centerY, Double radius, Integer numIterations, List<Locality> neighbours) {
+proc GridFormation(String robotId, Integer row, Integer col, Double gridSpacing, Integer numIterations, List<Locality> neighbours) {
     val syncInterval = 2000
-    val totalRobots = neighbours.size()+1
+    val totalRobots = neighbours.size() + 1
     val robotIndex = robotId.hashCode() % totalRobots
-    val targetAngle = robotIndex * (2 * Math.PI / totalRobots)
+    val rowIndex = robotIndex / col
+    val colIndex = robotIndex % col
 
     // Initialize position
-    var posX = centerX + radius * Math.cos(targetAngle)
-    var posY = centerY + radius * Math.sin(targetAngle)
+    var posX = colIndex * gridSpacing
+    var posY = rowIndex * gridSpacing
 
     // Move to the initial position
-    eval(new MoveTo(robotId, posX, posY))@self 
+    eval(new MoveTo(robotId, posX, posY))@self
     in(MOVE_TO_COMPLETED)@self
 
     for (var i = 0; i < numIterations; i++) {
@@ -39,14 +40,14 @@ proc CircleFormation(String robotId, Double centerX, Double centerY, Double radi
         for (List<Double> position : positions.values()) {
             avgX += position.get(0)
             avgY += position.get(1)
-        } 
+        }
 
         avgX /= (neighbours.size() + 1)
         avgY /= (neighbours.size() + 1)
 
-        // Update the position based on the average position and the desired circle formation
-        posX = centerX + radius * Math.cos(targetAngle) + 0.5 * (avgX - posX)
-        posY = centerY + radius * Math.sin(targetAngle) + 0.5 * (avgY - posY)
+        // Update the position based on the average position and the desired grid formation
+        posX = colIndex * gridSpacing + 0.5 * (avgX - posX)
+        posY = rowIndex * gridSpacing + 0.5 * (avgY - posY)
 
         // Move to the updated position
         eval(new MoveTo(robotId, posX, posY))@self
@@ -55,5 +56,5 @@ proc CircleFormation(String robotId, Double centerX, Double centerY, Double radi
         // Wait before the next iteration
         Thread.sleep(syncInterval)
     }
-    out(CIRCLE_FORMATION_COMPLETED)@self
+    out(GRID_FORMATION_COMPLETED)@self
 }
