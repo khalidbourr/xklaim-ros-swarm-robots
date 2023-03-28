@@ -49,15 +49,21 @@ In this repository, we present three different formation patterns for swarm robo
 
 Line formation involves organizing the robots in a straight line. The LineFormation process takes parameters such as robot ID, start and end points, and the list of neighboring robots to create a line formation. The robots share their positions with their neighbors, calculate the average position, and update their positions based on the desired line formation.
 
+![Alt text](https://github.com/khalidbourr/xklaim-ros-swarm-robots/blob/main/Line.jpg "Line Formation")
+
 ### Circle Formation
 <a name="circle-formation"></a>
 
 Circle formation involves arranging the robots in a circular pattern. The CircleFormation process takes parameters such as robot ID, center coordinates, radius, number of waypoints, and the list of neighboring robots to create a circle formation. The robots share their positions with their neighbors, calculate the average position, and update their positions based on the desired circular formation.
 
+![Alt text](https://github.com/khalidbourr/xklaim-ros-swarm-robots/blob/main/Circle.jpg "Circle Formation")
+
 ### Grid Formation
 <a name="grid-formation"></a>
 
 Grid formation involves positioning the robots in a grid pattern. The GridFormation process takes parameters such as robot ID, row and column indices, grid spacing, and the list of neighboring robots to create a grid formation. The robots share their positions with their neighbors, calculate the average position, and update their positions based on the desired grid formation.
+
+![Alt text](https://github.com/khalidbourr/xklaim-ros-swarm-robots/blob/main/Grid.jpg "Grid Formation")
 
 ## Usage
 <a name="usage"></a>
